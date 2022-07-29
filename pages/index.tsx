@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  chakra,
   Container,
   Grid,
   GridItem,
@@ -10,18 +11,30 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
-import lottieJson from "../assets/95348-coding-boy.json";
 import Navbar from "../components/Navbar";
+import Project from "../components/Project";
 
 const Home: NextPage = () => {
+  const [animationData, setAnimationData] = useState();
+
+  useEffect(() => {
+    //@ts-ignore
+    import("../assets/95348-coding-boy.json").then(setAnimationData);
+  }, []);
+
   return (
-    <>
+    <Container as="main" maxW={"container.xl"}>
       <Navbar />
-      <Grid templateColumns={[null, null, "repeat(2,1fr)"]} gap={8}>
-        <GridItem my="auto">
-          <Box as="section" bg="bg-surface">
-            <Container py={{ base: "16", md: "24" }}>
+      <section>
+        <Grid
+          templateColumns={[null, null, "repeat(2,1fr)"]}
+          gap={8}
+          // py={{ base: "8", md: "12" }}
+        >
+          <GridItem my="auto">
+            <Box as="section" bg="bg-surface">
               <Stack spacing={{ base: "8", md: "10" }}>
                 <Stack spacing={{ base: "4", md: "5" }} /*  align="center" */>
                   <Heading
@@ -52,16 +65,27 @@ const Home: NextPage = () => {
                   </Button>
                 </Stack>
               </Stack>
-            </Container>
-          </Box>
-        </GridItem>
-        <GridItem my="auto">
-          <Container>
-            <Lottie loop animationData={lottieJson} play speed={0.5} />
-          </Container>
-        </GridItem>
-      </Grid>
-    </>
+            </Box>
+          </GridItem>
+          <GridItem my="auto">
+            <Lottie
+              loop
+              animationData={animationData}
+              play
+              speed={0.5}
+              style={{
+                height: "300px",
+              }}
+              // py={{ base: "8", md: "12" }}
+            />
+          </GridItem>
+        </Grid>
+      </section>
+      <chakra.section pb={8}>
+        <Heading as="h2">Projects</Heading>
+        <Project />
+      </chakra.section>
+    </Container>
   );
 };
 
