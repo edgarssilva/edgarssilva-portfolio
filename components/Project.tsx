@@ -1,7 +1,15 @@
-import { Box, chakra, Flex, Icon, Image } from "@chakra-ui/react";
+import {
+  Box,
+  chakra,
+  Flex,
+  Grid,
+  GridItem,
+  Link,
+  Stack,
+} from "@chakra-ui/react";
+import { FaGithub } from "react-icons/fa";
 
-import { BsFillBriefcaseFill } from "react-icons/bs";
-import { MdEmail, MdLocationOn } from "react-icons/md";
+import NextImage from "next/image";
 
 interface ProjectProps {
   name: string;
@@ -15,73 +23,101 @@ interface ProjectProps {
 const Project = (props: ProjectProps) => {
   return (
     <Box
-      w={64}
       bg="white"
+      w={"100%"}
       _dark={{ bg: "gray.800" }}
-      shadow="lg"
-      rounded="lg"
-      overflow="hidden"
+      // mx={{ lg: 8 }}
+      display={{ lg: "flex" }}
+      // maxW={{ lg: "5xl" }}
+      shadow={{ lg: "lg" }}
+      rounded={{ lg: "lg" }}
     >
-      <Image
-        w="full"
-        h={40}
-        fit="cover"
-        objectPosition="center"
-        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-        alt="avatar"
-      />
+      <Box w={{ lg: "50%" }}>
+        <Box
+          h={{ base: 64, lg: "full" }}
+          rounded={{ lg: "lg" }}
+          bgSize="cover"
+          position={"relative"}
+          bg="#f8f9fa"
+          /*   style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1593642532400-2682810df593?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80')",
+          }} */
+        >
+          <NextImage src={props.image} layout="fill" objectFit="contain" />
+        </Box>
+      </Box>
 
-      <Box py={4} px={6}>
-        <chakra.h1
-          fontSize="xl"
-          fontWeight="bold"
+      <Box py={8} px={6} maxW={{ base: "xl", lg: "5xl" }} w={{ lg: "50%" }}>
+        <chakra.h2
+          fontSize={{ base: "2xl", md: "3xl" }}
           color="gray.800"
           _dark={{ color: "white" }}
+          fontWeight="bold"
         >
-          {props.name}
-        </chakra.h1>
-
-        <chakra.p py={2} color="gray.700" _dark={{ color: "gray.400" }}>
+          {props.name}{" "}
+        </chakra.h2>
+        <chakra.p mt={4} color="gray.600" _dark={{ color: "gray.400" }}>
           {props.description}
         </chakra.p>
 
-        <Flex
-          alignItems="center"
-          mt={4}
-          color="gray.700"
-          _dark={{ color: "gray.200" }}
+        <chakra.h3
+          pt={4}
+          fontSize={{ base: "lg", md: "xl" }}
+          color="gray.800"
+          _dark={{ color: "white" }}
+          fontWeight="semibold"
         >
-          <Icon as={BsFillBriefcaseFill} h={6} w={6} mr={2} />
+          Technologies
+        </chakra.h3>
 
-          <chakra.h1 px={2} fontSize="sm">
-            Choc UI
-          </chakra.h1>
-        </Flex>
-
-        <Flex
-          alignItems="center"
-          mt={4}
-          color="gray.700"
-          _dark={{ color: "gray.200" }}
+        <Grid
+          as="ul"
+          templateColumns={"repeat(2, 1fr)"}
+          _dark={{ color: "gray.400" }}
+          fontSize={{ base: "sm", md: "md" }}
+          // listStyleType="none"
         >
-          <Icon as={MdLocationOn} h={6} w={6} mr={2} />
+          {props.technologies.map((tech, i) => (
+            <GridItem key={i}>
+              <chakra.li ml="5">{tech}</chakra.li>
+            </GridItem>
+          ))}
+        </Grid>
 
-          <chakra.h1 px={2} fontSize="sm">
-            California
-          </chakra.h1>
-        </Flex>
-        <Flex
-          alignItems="center"
-          mt={4}
-          color="gray.700"
-          _dark={{ color: "gray.200" }}
-        >
-          <Icon as={MdEmail} h={6} w={6} mr={2} />
-
-          <chakra.h1 px={2} fontSize="sm">
-            patterson@example.com
-          </chakra.h1>
-        </Flex>
+        <Stack direction={["column", "row"]} mt={8}>
+          <Link
+            href={props.url}
+            target="_blank"
+            bg="gray.900"
+            color="gray.100"
+            px={5}
+            py={3}
+            fontWeight="semibold"
+            rounded="lg"
+            _hover={{ bg: "gray.800" }}
+          >
+            <Flex align={"center"} justifyContent={"center"}>
+              Live Demo
+            </Flex>
+          </Link>
+          <Link
+            href={props.github}
+            target="_blank"
+            bg="gray.200"
+            color="gray.900"
+            px={5}
+            py={3}
+            fontWeight="semibold"
+            rounded="lg"
+            _hover={{ bg: "gray.100" }}
+          >
+            <Flex align={"center"} justifyContent={"center"}>
+              <FaGithub />
+              <chakra.span ml={2}>Source Code</chakra.span>
+            </Flex>
+          </Link>
+        </Stack>
       </Box>
     </Box>
   );
@@ -89,11 +125,22 @@ const Project = (props: ProjectProps) => {
 
 Project.defaultProps = {
   name: "JERR",
-  description: "A software managent web application",
-  image: "",
+  description:
+    "A software managent web applicationA software managent web applicationA software managent web applicationA software managent web applicationA software managent web applicationA software managent web applicationA software managent web application",
+  image: require("../assets/jerr.png"),
   url: "https://jerr.pt",
-  github: "",
-  technologies: [],
+  github: "https://github.com/edgarssilva/jerr",
+  technologies: [
+    "React.js",
+    "Node.js",
+    "Moleculer.js (Microservices)",
+    "Mantine",
+    "Heroku",
+    "Docker",
+    "Chakra UI",
+    "TypeScript",
+    "Sass",
+  ],
 };
 
 export default Project;

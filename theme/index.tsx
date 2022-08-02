@@ -9,7 +9,7 @@ import { PropsWithChildren } from "react";
 
 import Fonts, { fonts } from "./fonts";
 
-const config: ThemeConfig = {
+export const config: ThemeConfig = {
   initialColorMode: "system",
   useSystemColorMode: false,
 };

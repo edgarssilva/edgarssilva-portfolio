@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -81,9 +82,15 @@ const Home: NextPage = () => {
           </GridItem>
         </Grid>
       </section>
-      <chakra.section pb={8}>
-        <Heading as="h2">Projects</Heading>
-        <Project />
+      <chakra.section py={8}>
+        <Heading as="h2" pb={8}>
+          Projects
+        </Heading>
+        <VStack spacing={8}>
+          <Project />
+          <Project />
+          <Project />
+        </VStack>
       </chakra.section>
     </Container>
   );
