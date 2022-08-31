@@ -6,14 +6,16 @@ import {
   Grid,
   GridItem,
   Heading,
+  SimpleGrid,
   Stack,
   Text,
   useBreakpointValue,
-  VStack,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
+import Photo from "../assets/Edgar Silva.jpg";
 import Navbar from "../components/Navbar";
 import Project from "../components/Project";
 
@@ -86,11 +88,25 @@ const Home: NextPage = () => {
         <Heading as="h2" pb={8}>
           Projects
         </Heading>
-        <VStack spacing={8}>
+        <SimpleGrid columns={[1, 2, 2, 3]} spacing={8}>
           <Project />
           <Project />
           <Project />
-        </VStack>
+        </SimpleGrid>
+      </chakra.section>
+      <chakra.section py={8}>
+        <Heading as="h2" pb={8}>
+          About Me
+        </Heading>
+        <Box boxSize={"xs"} position="relative">
+          <Image
+            src={Photo}
+            layout="fill"
+            objectFit="cover"
+            alt="Photo of Edgar Silva"
+            style={{ borderRadius: "50%" }}
+          />
+        </Box>
       </chakra.section>
     </Container>
   );
