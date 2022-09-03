@@ -88,7 +88,11 @@ const Home: NextPage = () => {
         <Heading as="h2" pb={8}>
           Projects
         </Heading>
-        <SimpleGrid columns={[1, 2, 2, 3]} spacing={8}>
+        <SimpleGrid columns={[1]} spacing={8}>
+          <Project />
+          <Project />
+          <Project />
+          <Project />
           <Project />
           <Project />
           <Project />
